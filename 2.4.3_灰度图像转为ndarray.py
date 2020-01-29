@@ -12,7 +12,7 @@ import numpy as np
 if __name__ == '__main__':
     # 输入图像矩阵，转换为array
     if len(sys.argv) > 1:
-        img = cv2.imread(sys.argv[1], cv2.CV_IMAGE_GRAYSCALE)
+        img = cv2.imread(sys.argv[1], cv2.IMREAD_GRAYSCALE)
     else:
         print("Usge: python imgToArray.py imageFile")
     # 显示图像
