@@ -17,5 +17,5 @@ if __name__ == '__main__':
         print("Usge: python imgToArray.py imageFile")
     # 显示图像
     cv2.imshow("img", img)
-    cv2.waitKey(0)
+    cv2.waitKey(0)  # 这里delaytime=0, 表示永不退出，除非按"Esc"键. delaytime单位：ms
     cv2.destroyAllWindows()
