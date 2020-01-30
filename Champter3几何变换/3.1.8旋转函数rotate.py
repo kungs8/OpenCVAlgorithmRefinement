@@ -33,3 +33,7 @@ if __name__ == '__main__':
     cv2.imshow("rImg270", rImg270)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+
+
+# 运行
+# ipython 3.1.8旋转函数rotate.py ../OpenCV_ImgData/Champter3/img.jpg
