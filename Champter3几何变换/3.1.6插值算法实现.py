@@ -36,7 +36,9 @@ if __name__ == '__main__':
 
     # 仿射变换矩阵，缩小2倍
     A1 = np.array([[0.5, 0, 0], [0, 0.5, 0]], np.float32)
-    d1 = cv2.warpAffine(src=image, M=A1, dsize=(w, h), borderValue=125)
+    # d1 = cv2.warpAffine(src=image, M=A1, dsize=(w, h), flags=cv2.INTER_LINEAR, borderValue=125)
+    # 插值法flags换成cv2.INTER_NEAREST
+    d1 = cv2.warpAffine(src=image, M=A1, dsize=(w, h), flags=cv2.INTER_NEAREST, borderValue=125)
 
     # 先缩小2倍，再平移(w/4, h/5)
     A2 = np.array([[0.5, 0, w/4], [0, 0.5, h/4]], np.float32)
