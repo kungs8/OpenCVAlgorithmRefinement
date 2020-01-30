@@ -18,10 +18,13 @@ import numpy as np
 # flags(插值法): INTE_NEAREST、INTE_LINEAR(默认)等
 # borderMode(填充模式): BORDER_CONSTANT等
 # borderValue: 当borderMode=BORDER_CONSTANT时的填充值
+
+# 增加上一路径到sys中，避免取文件夹中model报错
 sys.path.append('../')
-print(sys.path)
+
 from General_functions.General_function import CVToLocal
 
+# 例：获取图，并将其缩小2倍，然后平移(w/4, h/4)，然后再旋转30°
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         image = cv2.imread(sys.argv[1], cv2.IMREAD_GRAYSCALE)
@@ -40,7 +43,7 @@ if __name__ == '__main__':
     # 插值法flags换成cv2.INTER_NEAREST
     d1 = cv2.warpAffine(src=image, M=A1, dsize=(w, h), flags=cv2.INTER_NEAREST, borderValue=125)
 
-    # 先缩小2倍，再平移(w/4, h/5)
+    # 先缩小2倍，再平移(w/4, h/4)
     A2 = np.array([[0.5, 0, w/4], [0, 0.5, h/4]], np.float32)
     d2 = cv2.warpAffine(src=image, M=A2, dsize=(w, h), borderValue=125)
 
