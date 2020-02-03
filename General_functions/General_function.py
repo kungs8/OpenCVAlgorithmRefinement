@@ -43,3 +43,19 @@ def plotImg(image):
     y_maxValue = np.max(histogram)
     plt.axis([0, 255, 0, y_maxValue])
     plt.show()
+
+
+def calcGrayHist(image):
+    """
+    计算灰度直方图
+    :param image: 需要绘直方图的图像
+    :return:
+    """
+    # 灰度图像矩阵的高、宽
+    rows, cols = image.shape
+    # 存储灰度直方图
+    grayHist = np.zeros([256], np.float64)
+    for r in range(rows):
+        for c in range(cols):
+            grayHist[image[r][c]] += 1
+    return grayHist
