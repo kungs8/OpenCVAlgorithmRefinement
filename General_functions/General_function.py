@@ -8,6 +8,7 @@
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
+import math
 
 
 def CVToLocal(ImgName, img):
@@ -59,3 +60,37 @@ def calcGrayHist(image):
         for c in range(cols):
             grayHist[image[r][c]] += 1
     return grayHist
+
+
+def equalHist(image):
+    """
+    全局直方图均衡化
+    :param image: 需要进行全局直方图均衡化的图像
+    :return:
+    """
+    # 灰度图像矩阵的高、宽
+    rows, cols = image.shape
+    # Step1：计算灰度直方图
+    grayHist = calcGrayHist(image=image)
+    # Step2：计算累加直方图
+    zeroCumuMoment = np.zeros([256], np.uint32)
+    for p in range(256):
+        if p == 0:
+            zeroCumuMoment[p] = grayHist[0]
+        else:
+            zeroCumuMoment[p] = zeroCumuMoment[p - 1] + grayHist[p]
+    # Step3：根据累加灰度直方图得到输入灰度级和输出灰度级之间的映射关系
+    outPut_q = np.zeros([256], np.uint8)
+    cofficient = 256.0/(rows * cols)
+    for p in range(256):
+        q = cofficient * float(zeroCumuMoment[p]) - 1
+        if q >= 0:
+            outPut_q[p] = math.floor(q)
+        else:
+            outPut_q[p] = 0
+    # Step4：得到直方图均衡化后的图像
+    equalHistImage = np.zeros(image.shape, np.uint8)
+    for r in range(rows):
+        for c in range(cols):
+            equalHistImage[r][c] = outPut_q[image[r][c]]
+    return equalHistImage
